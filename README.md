@@ -1,12 +1,11 @@
 Clock & thermometer 7 segment arduino
 Clock & thermometer on 7 segment 4 digit display with arduino
 parts: 
-10k resistor 1x (to conect in series with thermistor)  
-10k NTC thermistor  1x ( actualy any, the bigger resitance the better)
-150 ohm resistor 4x ( to drive the display)
-7 segment 4 digit display 1x ( i bought a cheap one of aliexpress but the quality is awfull )
-arduino  x1 (i used nano) 
-wires x13-14
+1.10k resistor 1x (to conect in series with thermistor)  
+2.10k NTC thermistor  1x ( actualy any, the bigger resitance the better)
+3.150 ohm resistor 4x ( to drive the display)
+4.7 segment 4 digit display 1x ( i bought a cheap one of aliexpress but the quality is awfull )
+5.arduino  x1 (i used nano) 
 for faster temparature change i put some thrmal paste and a small radiator on the thermistor
 Assembly
 1. connect all the display pins to arduino pins, use the sequence from the code so you don't have to change them in the code later 
