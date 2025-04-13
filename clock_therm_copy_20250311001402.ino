@@ -1,11 +1,8 @@
-unsigned long startTime = 0;
-int mstart=(1);// starting minute
+int mstart=(0);// starting minute
 int hstart=(0); //starting hour
-byte i=0;
-float res;
-float temp;
-int read = 0;
-const float R0=(9860); //resistance of thermistor at 25C
+const float AnalogPin=(A6); //the pin conected to resistor
+const float R0=(9860); //resistance of resistor
+const float RT=(8050); //resistrance of thermistor at 25C
 const float B=(3950); //Beta of thermistor
 const int d4 = 12;
 const int g = 8;
@@ -19,6 +16,10 @@ const int f = 5;
 const int d2 = 4;
 const int d3 = 3;
 const int b = 1;
+byte i=0;
+float res;
+float temp;
+int read = 0; 
 long resettime=millis();
 bool tempbool = false;
 void setup() {  
@@ -464,12 +465,12 @@ tempbool = false;
 if (ttimer > 25000) {
   if (!tempbool) {
       digitalWrite(2, HIGH);
-      read = analogRead(A6);
+      read = analogRead(AnalogPin);
       digitalWrite(2, LOW);
       tempbool = true;
   }
   float tres=R0*(1023-read)/read;
-  float tempC = 1 /((1 / 298.15) + (1 / B) * log(tres / 8050) )-273.15;
+  float tempC = 1 /((1 / 298.15) + (1 / B) * log(tres / RT) )-273.15;
   int temp1 = ((int)tempC) / 10;         
   int temp2 = ((int)tempC) % 10;
   int temp3 = (int)(tempC*10)%10;
