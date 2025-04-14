@@ -1,5 +1,6 @@
-int mstart=(0);// starting minute
-int hstart=(0); //starting hour
+int mstart=(53);// starting minute
+int hstart=(18); //starting hour
+int t_error=(24000); //error of millis counting per day 
 const float AnalogPin=(A6); //the pin conected to resistor
 const float R0=(9860); //resistance of resistor
 const float RT=(8050); //resistrance of thermistor at 25C
@@ -16,6 +17,7 @@ const int f = 5;
 const int d2 = 4;
 const int d3 = 3;
 const int b = 1;
+long timeoffset=0;
 byte i=0;
 float res;
 float temp;
@@ -25,31 +27,30 @@ bool tempbool = false;
 void setup() {  
     int pins[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
-    for (int i = 0; i < 13; i++) {  // FIX: Start from index 0
-        pinMode(pins[i], OUTPUT);   // FIX: Use OUTPUT directly
+    for (int i = 0; i < 14; i++) {  
+        pinMode(pins[i], OUTPUT);   
         digitalWrite(pins[i], HIGH);
     }
 
-    digitalWrite(7, LOW);  // d1
-    digitalWrite(4, LOW);  // d2
-    digitalWrite(3, LOW);  // d3
-    digitalWrite(12, LOW); // d4
+    digitalWrite(7, LOW);  
+    digitalWrite(4, LOW);  
+    digitalWrite(3, LOW); 
+    digitalWrite(12, LOW);
   
 }
 
 void loop() {
-  unsigned long timer =millis(); 
-  unsigned long time = timer - resettime;
+  long timer =millis(); 
+  long time = timer - resettime;
 
-  // Reset after 24 hours (86400000 ms)
   if (time >= 86400000) {
-    resettime = millis();
-    time = 0;  // reset time tracking as well
+    timeoffset=timeoffset+t_error;
+    resettime = millis()+timeoffset;
+    time = 0;
   }
-
   unsigned long totalMinutes = (mstart + (time / 60000)) % 1440;
-  unsigned long minute = totalMinutes % 60; // Extract minutes
-  unsigned long hour = (totalMinutes / 60 + hstart ) % 24;  // Extract hours
+  unsigned long minute = totalMinutes % 60; 
+  unsigned long hour = (totalMinutes / 60 + hstart ) % 24;  
 
   byte minute1 = minute % 10;
   byte minute2 = minute / 10;
@@ -57,11 +58,9 @@ void loop() {
   byte hour2 = hour / 10;
   int ttimer=time % 30000;
 
-  // Optional: display or use the digits here
 
 if (ttimer <= 25000) {
   digitalWrite(d4, HIGH);
-  i=0;  // d4
 switch (minute1) {
     case 0:
         digitalWrite(a, LOW);
