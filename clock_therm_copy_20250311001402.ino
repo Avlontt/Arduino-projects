@@ -1,6 +1,5 @@
 int mstart=(53);// starting minute
 int hstart=(18); //starting hour
-int t_error=(24000); //error of millis counting per day 
 const float AnalogPin=(A6); //the pin conected to resistor
 const float R0=(9860); //resistance of resistor
 const float RT=(8050); //resistrance of thermistor at 25C
@@ -44,7 +43,7 @@ void loop() {
   long time = timer - resettime;
 
   if (time >= 86400000) {
-    timeoffset=timeoffset+t_error;
+    timeoffset=timeoffset;
     resettime = millis()+timeoffset;
     time = 0;
   }
