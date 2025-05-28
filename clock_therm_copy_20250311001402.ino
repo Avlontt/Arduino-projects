@@ -55,7 +55,7 @@ void loop() {
   byte minute2 = minute / 10;
   byte hour1 = hour % 10;
   byte hour2 = hour / 10;
-  int ttimer=time % 36000;
+  int ttimer=time % 30000;
 
 
 if (ttimer <= 5000) {
