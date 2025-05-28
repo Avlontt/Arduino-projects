@@ -1,8 +1,8 @@
-int mstart=(53);// starting minute
-int hstart=(18); //starting hour
+int mstart=(4);// starting minute
+int hstart=(13); //starting hour 
 const float AnalogPin=(A6); //the pin conected to resistor
 const float R0=(9860); //resistance of resistor
-const float RT=(8050); //resistrance of thermistor at 25C
+const float RT=(8000); //resistrance of thermistor at 25C
 const float B=(3950); //Beta of thermistor
 const int d4 = 12;
 const int g = 8;
@@ -55,10 +55,10 @@ void loop() {
   byte minute2 = minute / 10;
   byte hour1 = hour % 10;
   byte hour2 = hour / 10;
-  int ttimer=time % 30000;
+  int ttimer=time % 36000;
 
 
-if (ttimer <= 25000) {
+if (ttimer <= 5000) {
   digitalWrite(d4, HIGH);
 switch (minute1) {
     case 0:
@@ -460,10 +460,10 @@ switch (minute1) {
 digitalWrite(d1, LOW);
 tempbool = false;
 } 
-if (ttimer > 25000) {
+if (ttimer > 5000) {
   if (!tempbool) {
       digitalWrite(2, HIGH);
-      read = analogRead(AnalogPin);
+      read = analogRead(A6);
       digitalWrite(2, LOW);
       tempbool = true;
   }
